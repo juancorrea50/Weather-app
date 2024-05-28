@@ -5,6 +5,7 @@ const widgetDOM = () =>{
     const bottomContainer = document.createElement('div');
     const location = document.createElement('h1');
     const tempF = document.createElement('h2');
+    const convBtn = document.createElement('button');
     const heatIndex = document.createElement('h4');
     const windSpeed = document.createElement('h4');
     const feelsLike = document.createElement('h4');
@@ -25,6 +26,7 @@ const widgetDOM = () =>{
 
     //Style tags for Display
     topContainer.classList.add('display-top');
+    convBtn.classList.add('convert-button');
 
     //Append Children to form and container
     citySearchForm.appendChild(citySearchInp);
@@ -35,6 +37,7 @@ const widgetDOM = () =>{
     //Separated by top and bottom containers containing primary/secondary information
     topContainer.appendChild(location);
     topContainer.appendChild(tempF);
+    topContainer.appendChild(convBtn);
     bottomContainer.appendChild(heatIndex);
     bottomContainer.appendChild(windSpeed);
     bottomContainer.appendChild(feelsLike);
@@ -47,6 +50,7 @@ const widgetDOM = () =>{
     for(const node of weatherDisplay.childNodes[1].children){
         node.textContent = 'loading...';
     }
+    convBtn.textContent = '\u00B0C/KPH';
 
     return {weatherDisplay, citySearchContainer};
     
