@@ -5,7 +5,9 @@ const apiSearch = ()=>{
           const response = await fetch(urlInp,{mode: 'cors'});
           const weatherData = await response.json();
           
+          console.log(`From WeatherAPI function:`);
           console.log(weatherData);
+          return weatherData;
           
           /*response.json().then(function(response){
             console.log(response);
@@ -21,12 +23,14 @@ const apiSearch = ()=>{
             url += "london";
           }
           try {
-            searchAPI(url);
+            //if successful returns the weatherData for the input
+            return searchAPI(url);
           } catch (error) {
+            //If there was an error return the default london information
             console.error(
               `Search Error: ${error} \n There was an api error. Displaying London's weather information`
             );
-            retrieveWeatherData("london");
+            return retrieveWeatherData("london");
           }
         }
         return retrieveWeatherData(inpVal);
