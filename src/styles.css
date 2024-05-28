@@ -1,0 +1,21 @@
+html{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+.app-container{
+    border: 1px solid black;
+}
+.search-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.weather-display{
+    height: 30rem;
+    width: 60rem;
+    border: 1px solid black;
+}
