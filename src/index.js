@@ -1,7 +1,9 @@
 import "./styles.css";
 import widgetDOM from "./widgetDOM";
 import apiSearch from "./APISearch";
+import gifSearch from "./gifSearch";
 
+//Function for converting the display to European metrics
 function convertDisplay(weatherInf,nodeCont){
   const conBtn = nodeCont.childNodes[0].childNodes[3];
   if(conBtn.textContent == '\u00B0C/KPH'){
@@ -23,7 +25,19 @@ function convertDisplay(weatherInf,nodeCont){
       nodeCont.childNodes[0].childNodes[3].textContent = '\u00B0C/KPH'
     })
   }
-
+}
+//Function to display weather information and edit DOM elements accordingly
+function displayWeatherInfo(data, node,gsf){
+  data.then(function(response){
+    node.childNodes[0].childNodes[0].textContent = `${response.location.name}, ${response.location.country}`;
+    node.childNodes[0].childNodes[1].textContent = `${response.current.temp_f}\u00B0F`;
+    node.childNodes[1].childNodes[0].textContent = `Heat Index: ${response.current.heatindex_f}\u00B0F`;
+    node.childNodes[1].childNodes[1].textContent = `Wind Speed: ${response.current.wind_mph} mph`;
+    node.childNodes[1].childNodes[2].textContent = `Feels Like: ${response.current.feelslike_f}\u00B0F`;
+    node.childNodes[0].childNodes[2].textContent = `${response.current.condition.text}`;
+    node.style.backgroundImage = `url(${response.current.condition.icon})`;
+    gsf(response.current.condition.text,node.childNodes[2].childNodes[0]);
+  });
 }
 
 function weatherApp() {
@@ -33,22 +47,18 @@ function weatherApp() {
   //Node setup
   const search = widgetDOM().citySearchContainer;
   const weather = widgetDOM().weatherDisplay;
+  const gSearch = gifSearch();
   const convBtn = weather.childNodes[0].childNodes[3];
   const apiS = apiSearch();
   //Initial load
+
   //Set the default location to London
   const weatherInfo = apiS('london');
   //Load information to the DOM
-  weatherInfo.then(function(response){
-    weather.childNodes[0].childNodes[0].textContent = `${response.location.name}, ${response.location.country}`;
-    weather.childNodes[0].childNodes[1].textContent = `${response.current.temp_f}\u00B0F`;
-    weather.childNodes[1].childNodes[0].textContent = `Heat Index: ${response.current.heatindex_f}\u00B0F`;
-    weather.childNodes[1].childNodes[1].textContent = `Wind Speed: ${response.current.wind_mph} mph`;
-    weather.childNodes[1].childNodes[2].textContent = `Feels Like: ${response.current.feelslike_f}\u00B0F`;
-    weather.childNodes[0].childNodes[2].textContent = `${response.current.condition.text}`;
-    weather.style.backgroundImage = `url(${response.current.condition.icon})`
-  });
+  displayWeatherInfo(weatherInfo,weather,gSearch);
 
+
+  //Button funtion added to convert button
   convBtn.addEventListener('click',()=>{
     convertDisplay(weatherInfo,weather);
   });

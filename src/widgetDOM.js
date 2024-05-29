@@ -11,7 +11,10 @@ const widgetDOM = () =>{
     const windSpeed = document.createElement('h3');
     const feelsLike = document.createElement('h3');
 
+    const imgContainer = document.createElement('div');
     const img = document.createElement('img');
+
+    imgContainer.classList.add('image-container');
 
     //DOM for search
     const citySearchContainer = document.createElement('div');
@@ -39,6 +42,7 @@ const widgetDOM = () =>{
 
     //Append Children for display
     //Separated by top and bottom containers containing primary/secondary information
+    imgContainer.appendChild(img);
     topContainer.appendChild(location);
     topContainer.appendChild(tempF);
     topContainer.appendChild(weatherStatus);
@@ -48,7 +52,7 @@ const widgetDOM = () =>{
     bottomContainer.appendChild(feelsLike);
     weatherDisplay.appendChild(topContainer);
     weatherDisplay.appendChild(bottomContainer);
-    weatherDisplay.appendChild(img);
+    weatherDisplay.appendChild(imgContainer);
 
     for(const node of weatherDisplay.childNodes[0].children){
         node.textContent = 'loading...';
