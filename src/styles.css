@@ -8,6 +8,12 @@ html{
 .display-top{
     display: flex;
     justify-content: space-between;
+    background-color: white;
+}
+.display-bottom{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
 }
 .app-container{
     border: 1px solid black;
