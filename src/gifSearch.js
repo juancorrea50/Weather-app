@@ -16,6 +16,7 @@ const gifSearch = ()=>{
         const response = await fetch(url, {mode: 'cors'});
         const gifData = await response.json();
         node.src = gifData.data.images.original.url;
+        console.log('From gifSearch function: ');
         console.log(gifData);
     }
     return searchApi;
